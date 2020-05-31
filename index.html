@@ -180,14 +180,13 @@
   </template>
   <script>
     var fireballSize = 22;
-    function getFireballSpeed(isHeadWind) {
-      if (!isHeadWind) {
-        return 5;
-      }
-      return 2;
-    }
     var wizardSpeed = 3;
     var wizardWidth = 70;
+
+    function getFireballSpeed(isHeadWind) {
+      return isHeadWind ? 2 : 5;
+    }
+
     function getWizardHeight() {
       return 1.337 * wizardWidth;
     }

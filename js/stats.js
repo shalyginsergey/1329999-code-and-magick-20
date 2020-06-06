@@ -9,7 +9,16 @@ var GAP_WIDTH = 50;
 var GAP = 20;
 var FONT_GAP = 16;
 var BAR_WIDTH = 40;
-var MaxBarHeight = 150;
+var MAXBARHEIGHT = 150;
+var colors = ['rgba(255, 0, 0, 1)', 'hsl(240, 62%, 25%)', 'hsl(243, 0%, 57%)', 'hsl(243, 14%, 45%)'];
+var Color = {
+  BLACK: '#000',
+  WHITE: '#fff',
+};
+var Attention = {
+  WIN: 'Ура вы победили!',
+  RESULT: 'Список результатов:',
+};
 
 var renderCloud = function (ctx, x, y, color) {
   ctx.fillStyle = color;
@@ -28,26 +37,23 @@ var getMaxElement = function (arr) {
 
 window.renderStatistics = function (ctx, players, times) {
   renderCloud(ctx, CLOUD_X + 10, CLOUD_Y + 10, 'rgba(0, 0, 0, 0.7)');
-  renderCloud(ctx, CLOUD_X, CLOUD_Y, '#fff');
+  renderCloud(ctx, CLOUD_X, CLOUD_Y, Color.WHITE);
 
-  ctx.fillStyle = '#000';
+  ctx.fillStyle = Color.BLACK;
   ctx.font = '16px PT Mono';
   ctx.textBaseline = 'hanging';
-  ctx.fillText('Ура вы победили!', CLOUD_X + GAP, CLOUD_Y + GAP);
-  ctx.fillText('Список результатов:', CLOUD_X + GAP, CLOUD_Y + FONT_GAP + GAP);
+  ctx.fillText(Attention.WIN, CLOUD_X + GAP, CLOUD_Y + GAP);
+  ctx.fillText(Attention.RESULT, CLOUD_X + GAP, CLOUD_Y + FONT_GAP + GAP);
 
   var maxTime = getMaxElement(times);
 
-
-  var colors = ['rgba(255, 0, 0, 1)', 'hsl(240, 62%, 25%)', 'hsl(243, 0%, 57%)', 'hsl(243, 14%, 45%)'];
-
   for (var i = 0; i < players.length; i++) {
-    ctx.fillStyle = '#000';
+    ctx.fillStyle = Color.BLACK;
     ctx.fillText(players[i], CLOUD_X + GAP_WIDTH + (GAP_WIDTH + BAR_WIDTH) * i, BAR_Y - GAP);
     ctx.fillStyle = colors[i];
-    ctx.fillRect(CLOUD_X + GAP_WIDTH + (GAP_WIDTH + BAR_WIDTH) * i, BAR_Y - GAP - FONT_GAP, BAR_WIDTH, -((MaxBarHeight * times[i]) / maxTime));
-    ctx.fillStyle = '#000';
-    ctx.fillText(Math.round(times[i]), CLOUD_X + GAP_WIDTH + (GAP_WIDTH + BAR_WIDTH) * i, BAR_Y - GAP - FONT_GAP - ((MaxBarHeight * times[i]) / maxTime) - GAP);
+    ctx.fillRect(CLOUD_X + GAP_WIDTH + (GAP_WIDTH + BAR_WIDTH) * i, BAR_Y - GAP - FONT_GAP, BAR_WIDTH, -((MAXBARHEIGHT * times[i]) / maxTime));
+    ctx.fillStyle = Color.BLACK;
+    ctx.fillText(Math.round(times[i]), CLOUD_X + GAP_WIDTH + (GAP_WIDTH + BAR_WIDTH) * i, BAR_Y - GAP - FONT_GAP - ((MAXBARHEIGHT * times[i]) / maxTime) - GAP);
   }
 };
 
